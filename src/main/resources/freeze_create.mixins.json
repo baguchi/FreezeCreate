@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "baguchan.freeze_create.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "tofucraft.refmap.json",
+  "mixins": [
+    "ItemMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}

@@ -1,0 +1,5 @@
+{
+  "freeze_create.food_day": "賞味期限: %s日まで",
+  "freeze_create.freeze": "冷凍済み",
+  "freeze_create.rotten": "腐敗"
+}
