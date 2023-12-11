@@ -5,10 +5,7 @@ import baguchan.freeze_create.register.ModTags;
 import baguchan.freeze_create.util.FreezeUtils;
 import baguchan.freeze_create.util.algorithm.FreezeFloodFiller3D;
 import com.mojang.datafixers.util.Pair;
-import com.simibubi.create.content.kinetics.belt.behaviour.TransportedItemStackHandlerBehaviour;
 import com.simibubi.create.content.kinetics.fan.EncasedFanBlockEntity;
-import com.simibubi.create.content.kinetics.fan.processing.AllFanProcessingTypes;
-import com.simibubi.create.content.kinetics.fan.processing.FanProcessingType;
 import com.simibubi.create.foundation.blockEntity.behaviour.BehaviourType;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.utility.Iterate;
@@ -17,7 +14,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.Set;
 
@@ -66,7 +62,7 @@ public class FreezeFanBehaviour extends BlockEntityBehaviour {
                             BlockPos pos = encasedFanBlockEntity.getAirCurrentPos().relative(direction.getOpposite(), (int) limit + 1)
                                     .below(offset);
                             if (level.getBlockState(pos).is(ModTags.FREEZE_BLOCK)) {
-                                FreezeUtils.setEntry(level, pos.relative(direction, 1), FreezeFloodFiller3D.run(level, pos, (int) (Math.abs(encasedFanBlockEntity.getSpeed()) * 2)));
+                                FreezeUtils.setEntry(level, pos.relative(direction, 1), FreezeFloodFiller3D.run(level, pos, (int) (Math.abs(encasedFanBlockEntity.getSpeed()) / 8)));
                                 cacheBlockPos = pos;
                             }else {
                                 if(cacheBlockPos != null) {
