@@ -62,7 +62,8 @@ public class FreezeFanBehaviour extends BlockEntityBehaviour {
                             BlockPos pos = encasedFanBlockEntity.getAirCurrentPos().relative(direction.getOpposite(), (int) limit + 1)
                                     .below(offset);
                             if (level.getBlockState(pos).is(ModTags.FREEZE_BLOCK)) {
-                                FreezeUtils.setEntry(level, pos.relative(direction, 1), FreezeFloodFiller3D.run(level, pos, (int) (Math.abs(encasedFanBlockEntity.getSpeed()) / 8)));
+                                int calculate = (int) (Math.abs(encasedFanBlockEntity.getSpeed()) / 8);
+                                FreezeUtils.setEntry(level, pos.relative(direction, 1), FreezeFloodFiller3D.run(level, pos, calculate * calculate * calculate));
                                 cacheBlockPos = pos;
                             }else {
                                 if(cacheBlockPos != null) {
