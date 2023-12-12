@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class ItemMixin {
     @Inject(method = "inventoryTick", at = @At("HEAD"))
     public void inventoryTick(ItemStack p_41404_, Level p_41405_, Entity p_41406_, int p_41407_, boolean p_41408_, CallbackInfo ci) {
-        int day = 8;
+        int day = 10;
         if (p_41404_.getItem().isEdible()) {
 
             CompoundTag compoundtag = p_41404_.getOrCreateTag();
@@ -30,13 +30,13 @@ public abstract class ItemMixin {
                     compoundtag.remove("Freeze");
                 }
             }
-            if(!compoundtag.contains("Rotten")) {
+            if (!compoundtag.contains("Rotten") && !compoundtag.contains("Freeze")) {
                 if (compoundtag.contains("FoodDay")) {
-                    if (compoundtag.getLong("FoodDay") < p_41405_.getGameTime() - 24000L * day) {
+                    if (24000L * compoundtag.getInt("FoodDay") < p_41405_.getGameTime() - 24000L * day) {
                         compoundtag.putBoolean("Rotten", true);
                     }
                 } else {
-                    compoundtag.putLong("FoodDay", p_41405_.getGameTime());
+                    compoundtag.putInt("FoodDay", (int) (p_41405_.getGameTime() / 24000));
                 }
             }
         }
