@@ -1,5 +1,6 @@
 package baguchan.freeze_create.mixin;
 
+import baguchan.freeze_create.FreezeConfigs;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -21,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class ItemMixin {
     @Inject(method = "inventoryTick", at = @At("HEAD"))
     public void inventoryTick(ItemStack p_41404_, Level p_41405_, Entity p_41406_, int p_41407_, boolean p_41408_, CallbackInfo ci) {
-        int day = 10;
+        int day = FreezeConfigs.COMMON.rottenDay.get();
         if (p_41404_.getItem().isEdible()) {
 
             CompoundTag compoundtag = p_41404_.getOrCreateTag();

@@ -37,7 +37,7 @@ public class CommonEvents {
                 if (!compoundtag.contains("Rotten")) {
                     if (compoundtag.contains("FoodDay")) {
                         long foodDay = compoundtag.contains("FoodDay") ? compoundtag.getInt("FoodDay") : 0;
-                        int day = 10;
+                        int day = FreezeConfigs.COMMON.rottenDay.get();
                         event.getToolTip().add(Component.translatable("freeze_create.food_day", (foodDay + day) - (event.getEntity().level.getGameTime() / 24000)));
                     }
                 }
