@@ -16,6 +16,10 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+/*
+ * Thanks Ad Astra mod!
+ * https://github.com/terrarium-earth/Ad-Astra/blob/1.20.x/common/src/main/java/earth/terrarium/ad_astra/common/util/OxygenUtils.java
+ */
 public class FreezeUtils {
     public static final Map<Pair<ResourceKey<Level>, BlockPos>, Set<BlockPos>> FREEZE_LOCATIONS = new HashMap<>();
     public static final Map<Pair<ResourceKey<Level>, BlockPos>, Set<BlockPos>> FREEZE_BLOCK_ENTITY_LOCATIONS = new HashMap<>();
