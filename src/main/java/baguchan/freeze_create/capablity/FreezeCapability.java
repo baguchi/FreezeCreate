@@ -31,9 +31,11 @@ public class FreezeCapability implements ICapabilityProvider, ICapabilitySeriali
                         if (stack.getItem().isEdible()) {
                             if (!compoundtag.contains("Freeze")) {
                                 compoundtag.putBoolean("Freeze", true);
+                                int foodDay = compoundtag.contains("FoodDay") ? compoundtag.getInt("FoodDay") : 0;
+                                compoundtag.putInt("FoodDay", (((int) (blockentity.getLevel().getGameTime() / 24000) - lastGameDay) + foodDay));
                             } else {
                                 int foodDay = compoundtag.contains("FoodDay") ? compoundtag.getInt("FoodDay") : 0;
-                                compoundtag.putInt("FoodDay", (lastGameDay - foodDay) + foodDay);
+                                compoundtag.putInt("FoodDay", (((int) (blockentity.getLevel().getGameTime() / 24000) - lastGameDay) + foodDay));
                             }
                         }
                     }
