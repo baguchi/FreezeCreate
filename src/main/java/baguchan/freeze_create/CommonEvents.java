@@ -34,10 +34,12 @@ public class CommonEvents {
                 if (compoundtag.contains("Freeze")) {
                     event.getToolTip().add(Component.translatable("freeze_create.freeze"));
                 }
-                if (compoundtag.contains("FoodDay")) {
-                    long foodDay = compoundtag.contains("FoodDay") ? compoundtag.getInt("FoodDay") : 0;
-                    int day = 10;
-                    event.getToolTip().add(Component.translatable("freeze_create.food_day", (foodDay + day) - (event.getEntity().level.getGameTime() / 24000)));
+                if (!compoundtag.contains("Rotten")) {
+                    if (compoundtag.contains("FoodDay")) {
+                        long foodDay = compoundtag.contains("FoodDay") ? compoundtag.getInt("FoodDay") : 0;
+                        int day = 10;
+                        event.getToolTip().add(Component.translatable("freeze_create.food_day", (foodDay + day) - (event.getEntity().level.getGameTime() / 24000)));
+                    }
                 }
             }
         }
