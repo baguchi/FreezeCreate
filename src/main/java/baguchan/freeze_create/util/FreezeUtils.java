@@ -9,7 +9,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import org.apache.commons.compress.utils.Sets;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -56,7 +55,7 @@ public class FreezeUtils {
     }
 
     public static void addDistributorFreezeBlockEntitys(Level level, BlockPos pos) {
-        Set<BlockPos> blockPos2 = Sets.newHashSet();
+        Set<BlockPos> blockPos2 = new HashSet<>();
         ResourceKey<Level> previousDimension = null;
         for (Map.Entry<Pair<ResourceKey<Level>, BlockPos>, Set<BlockPos>> entry : FREEZE_LOCATIONS.entrySet()) {
             if (level.dimension().equals(entry.getKey().getFirst())) {
