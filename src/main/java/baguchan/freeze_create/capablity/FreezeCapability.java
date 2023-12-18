@@ -1,16 +1,19 @@
 package baguchan.freeze_create.capablity;
 
 import baguchan.freeze_create.FreezeCreate;
+import baguchan.freeze_create.message.FreezeMessage;
 import baguchan.freeze_create.util.FreezeUtils;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
@@ -33,9 +36,15 @@ public class FreezeCapability implements ICapabilityProvider, ICapabilitySeriali
                                 compoundtag.putBoolean("Freeze", true);
                                 int foodDay = compoundtag.contains("FoodDay") ? compoundtag.getInt("FoodDay") : 0;
                                 compoundtag.putInt("FoodDay", (((int) (blockentity.getLevel().getGameTime() / 24000) - lastGameDay) + foodDay));
+                                LevelChunk chunk = blockentity.getLevel().getChunkAt(blockentity.getBlockPos());
+                                FreezeCreate.CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> chunk), new FreezeMessage(blockentity.getBlockPos(), stack.getTag(), i));
+
                             } else {
                                 int foodDay = compoundtag.contains("FoodDay") ? compoundtag.getInt("FoodDay") : 0;
                                 compoundtag.putInt("FoodDay", (((int) (blockentity.getLevel().getGameTime() / 24000) - lastGameDay) + foodDay));
+                                LevelChunk chunk = blockentity.getLevel().getChunkAt(blockentity.getBlockPos());
+                                FreezeCreate.CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> chunk), new FreezeMessage(blockentity.getBlockPos(), stack.getTag(), i));
+
                             }
                         }
                     }
@@ -46,6 +55,9 @@ public class FreezeCapability implements ICapabilityProvider, ICapabilitySeriali
                         if (stack.getItem().isEdible()) {
                             if (stack.getTag() != null && stack.getTag().contains("Freeze")) {
                                 stack.getOrCreateTag().remove("Freeze");
+                                LevelChunk chunk = blockentity.getLevel().getChunkAt(blockentity.getBlockPos());
+                                FreezeCreate.CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> chunk), new FreezeMessage(blockentity.getBlockPos(), stack.getTag(), i));
+
                             }
                         }
                     }
@@ -65,6 +77,9 @@ public class FreezeCapability implements ICapabilityProvider, ICapabilitySeriali
                 if (stack.getItem().isEdible()) {
                     if (stack.getTag() != null && stack.getTag().contains("Freeze")) {
                         stack.getOrCreateTag().remove("Freeze");
+                        LevelChunk chunk = blockEntity.getLevel().getChunkAt(blockEntity.getBlockPos());
+                        FreezeCreate.CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> chunk), new FreezeMessage(blockEntity.getBlockPos(), stack.getTag(), i));
+
                     }
                 }
             }
