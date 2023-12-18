@@ -47,9 +47,11 @@ public abstract class ItemMixin implements IForgeItem {
 
     @Inject(method = "onCraftedBy", at = @At("HEAD"))
     public void onCraftedBy(ItemStack p_41447_, Level p_41448_, Player p_41449_, CallbackInfo ci) {
-        CompoundTag compoundtag = p_41447_.getOrCreateTag();
-        if (!compoundtag.contains("FoodDay")) {
-            compoundtag.putInt("FoodDay", (int) (p_41448_.getGameTime() / 24000));
+        if (p_41447_.isEdible()) {
+            CompoundTag compoundtag = p_41447_.getOrCreateTag();
+            if (!compoundtag.contains("FoodDay")) {
+                compoundtag.putInt("FoodDay", (int) (p_41448_.getGameTime() / 24000));
+            }
         }
     }
 
@@ -67,10 +69,12 @@ public abstract class ItemMixin implements IForgeItem {
     }
 
     public boolean onEntityItemUpdate(ItemStack stack, ItemEntity entity) {
-        CompoundTag compoundtag = stack.getOrCreateTag();
-        if (!compoundtag.contains("FoodDay")) {
-            compoundtag.putInt("FoodDay", (int) (entity.level.getGameTime() / 24000));
-            return true;
+        if (stack.isEdible()) {
+            CompoundTag compoundtag = stack.getOrCreateTag();
+            if (!compoundtag.contains("FoodDay")) {
+                compoundtag.putInt("FoodDay", (int) (entity.level.getGameTime() / 24000));
+                return true;
+            }
         }
         return false;
     }
